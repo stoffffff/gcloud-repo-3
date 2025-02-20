@@ -16,12 +16,12 @@ steps:
         gcloud artifacts docker images delete ${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY_NAME}/${_IMAGE_NAME} --delete-tags --quiet || echo "Image not found"
 
 substitutions:
-  _PROJECT_ID: "gcp-devops-451014"
-  _REGION: "europe-southwest1"
-  _SERVICE_NAME: "cloud-run-cicd"
-  _LOCATION: "europe-southwest1"
-  _REPOSITORY_NAME: "europe-southwest1-docker.pkg.dev"
-  _IMAGE_NAME: "repo-3-image"
+  _PROJECT_ID: gcp-devops-451014
+  _REGION: europe-southwest1
+  _SERVICE_NAME: cloud-run-cicd
+  _LOCATION: europe-southwest1
+  _REPOSITORY_NAME: europe-southwest1-docker.pkg.dev
+  _IMAGE_NAME: repo-3-image
 
 options:
   logging : CLOUD_LOGGING_ONLY

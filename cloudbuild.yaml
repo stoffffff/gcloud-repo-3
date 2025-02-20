@@ -13,7 +13,7 @@ steps:
     args:
       - "-c"
       - |
-        gcloud artifacts docker images delete ${_LOCATION}-docker.pkg.dev/$[_PROJECT_ID}/${_REPOSITORY_NAME}/${_IMAGE_NAME} --delete-tags --quiet || echo "Image not found"
+        gcloud artifacts docker images delete ${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY_NAME}/${_IMAGE_NAME} --delete-tags --quiet || echo "Image not found"
 
 substitutions:
   _PROJECT_ID: "gcp-devops-451014"

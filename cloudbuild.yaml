@@ -17,10 +17,10 @@ steps:
 
 substitutions:
   _PROJECT_ID: gcp-devops-451014
-  _REGION: europe-southwest1
+  _REGION: us-central1
   _SERVICE_NAME: cloud-run-cicd
   _LOCATION: europe-southwest1
-  _REPOSITORY_NAME: europe-southwest1-docker.pkg.dev
+  _REPOSITORY_NAME: myrepo-madrid
   _IMAGE_NAME: repo-3-image
 
 options:

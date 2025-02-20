@@ -1,16 +1,28 @@
 steps:
-# Build the container image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'europe-southwest1-docker.pkg.dev/gcp-devops-451014/my-repo-madrid/repo-3-image', '.']
-# Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'europe-southwest1-docker.pkg.dev/gcp-devops-451014/my-repo-madrid/repo-3-image']
-# Deploy container image to Cloud Run
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: gcloud
-  args: ['run', 'deploy', 'cloud-run-cicd', '--image', 'europe-southwest1-docker.pkg.dev/gcp-devops-451014/my-repo-madrid/repo-3-image', '--region', 'us-central1', '--allow-unauthenticated']
-images:
-- europe-southwest1-docker.pkg.dev/gcp-devops-451014/my-repo-madrid/repo-3-image
+  # Supprimer le service Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gcloud run services delete SERVICE_NAME --region=REGION --quiet || echo "Cloud Run service not found"
+
+  # Supprimer l'image de l'Artifact Registry
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gcloud artifacts docker images delete LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_NAME/IMAGE_NAME --delete-tags --quiet || echo "Image not found"
+
+substitutions:
+  _PROJECT_ID: "gcp-devops-451014"
+  _REGION: "europe-southwest1"
+  _SERVICE_NAME: "runwithcicd"
+  _LOCATION: "europe-southwest1-docker.pkg.dev"
+  _REPOSITORY_NAME: "europe-southwest1-docker.pkg.dev"
+  _IMAGE_NAME: "repo-3-image"
+
 options:
   logging : CLOUD_LOGGING_ONLY
 timeout: 1600s
